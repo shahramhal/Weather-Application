@@ -11,8 +11,12 @@ import org.json.JSONObject;
  * Service for fetching weather information
  */
 public class WeatherService {
-    private String API_KEY ="da99a1c39deaa1b1e4b8ca62fecbb78a"; // Replace with your actual API key
+    private String API_KEY ; // Replace with your actual API key
     private String BASE_URL= "https://api.openweathermap.org/data/2.5/weather";
+    
+    public WeatherService(){
+        this.API_KEY=ConfigReader.getApiKey();
+    }
     
     public WeatherData getWeather(String cName) throws Exception{
         String urlString = BASE_URL + "?q=" + cName + "&units=metric&appid=" + API_KEY;
