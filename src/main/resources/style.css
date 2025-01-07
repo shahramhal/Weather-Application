@@ -33,20 +33,24 @@
     -fx-font-size: 14px;
 }
 
-.weather-icon {
-    -fx-max-width: 50px;
-    -fx-max-height: 50px;
-    -fx-padding: 10px;
+.weather-clear {
+    -fx-background-color: linear-gradient(to bottom, #87CEFA, #1E90FF);
 }
 
-.vbox {
-    -fx-alignment: center;
-    -fx-spacing: 20px;
+.weather-rain {
+    -fx-background-color: linear-gradient(to bottom, #708090, #2F4F4F);
 }
-/* Common styles for both themes */
-.label, .text-field, .combo-box, .button {
-    -fx-font-size: 14px; /* Set a common font size */
-    -fx-padding: 5px;
+
+.weather-snow {
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #E0FFFF);
+}
+
+.weather-clouds {
+    -fx-background-color: linear-gradient(to bottom, #B0C4DE, #778899);
+}
+
+.weather-default {
+    -fx-background-color: linear-gradient(to bottom, #FFE4B5, #FFD700);
 }
 
 /* Dark mode styles */
@@ -55,16 +59,15 @@
     -fx-text-fill: white; /* Change text color to white for the whole scene */
 }
 
-.dark-theme .label , .dark-theme.radio-button{
+.dark-theme .label , .dark-theme.radio-button {
     -fx-text-fill: white; /* Labels text color in dark mode */
 }
 
-.dark-theme .text-field, .dark-theme .button ,.dark-theme.vbox{
+.dark-theme .text-field, .dark-theme .combo-box, .dark-theme .button {
     -fx-background-color: #444; /* Dark background for input fields and buttons */
     -fx-text-fill: white; /* Text color in input fields and buttons */
     -fx-border-color: #666; /* Border color */
 }
-
 
 .dark-theme .toggle-button {
     -fx-background-color: #444;
@@ -99,4 +102,13 @@
 
 .light-theme .metric {
     -fx-text-fill: black; /* Black text for metrics in light mode */
+}
+
+/* Rain Animation Background */
+.rain-background {
+    -fx-background-color: linear-gradient(to bottom, #030420, #000000);
+}
+
+.thunder-background {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
 }

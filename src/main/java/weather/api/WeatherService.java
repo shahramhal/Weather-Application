@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /** Service for fetching weather information */
 public class WeatherService {
@@ -17,7 +19,11 @@ public class WeatherService {
     }
 
     public WeatherData getWeather(String cName, String units, String lang) throws Exception {
-        String urlString = BASE_URL + "?q=" + cName + "&units=" + units + "&lang=" + lang + "&appid=" + API_KEY;
+        // Encode the city name to handle spaces and special characters
+        String encodedCityName = URLEncoder.encode(cName, StandardCharsets.UTF_8.toString());
+
+        // Build the URL with the encoded city name
+        String urlString = BASE_URL + "?q=" + encodedCityName + "&units=" + units + "&lang=" + lang + "&appid=" + API_KEY;
         URL url = new URL(urlString);
 
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -42,8 +48,14 @@ public class WeatherService {
         int humidity = jsonResponse.getJSONObject("main").getInt("humidity");
         double windSpeed = jsonResponse.getJSONObject("wind").getDouble("speed");
         String city = jsonResponse.getString("name");
-        
 
-        return new WeatherData(city, description, temp, humidity, windSpeed);
+        // Determine if it's day or night based on the weather data (using sys.sunrise and sys.sunset)
+        long sunrise = jsonResponse.getJSONObject("sys").getLong("sunrise");
+        long sunset = jsonResponse.getJSONObject("sys").getLong("sunset");
+        long currentTime = System.currentTimeMillis() / 1000; // Current time in seconds
+
+        boolean isDaytime = currentTime >= sunrise && currentTime <= sunset;
+
+        return new WeatherData(city, description, temp, humidity, windSpeed, isDaytime);
     }
 }

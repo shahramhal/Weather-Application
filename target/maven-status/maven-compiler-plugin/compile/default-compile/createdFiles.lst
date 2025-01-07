@@ -1,3 +1,4 @@
 com\mycompany\weatherapp\WeatherApp1.class
+weather\api\UnsplashService.class
 weather\data\WeatherData.class
 weather\api\WeatherService.class
